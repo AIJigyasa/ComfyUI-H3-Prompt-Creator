@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-h3-prompt-creator"
 description = "MiniMax H3 video prompt creators for ComfyUI. Automatic T2VA/I2VA/FL2VA/L2VA mode selection, a six-section full-reference mode with per-image subject analysis, and use-case presets. Runs on a local Ollama vision model or on OpenAI, Anthropic, OpenRouter or Google Gemini."
-version = "3.0.1"
+version = "3.0.0"
 license = { file = "LICENSE" }
 requires-python = ">=3.9"
 

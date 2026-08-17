@@ -111,7 +111,8 @@ def _img_b64(image) -> str:
     if max(im.size) > 768:
         scale = 768.0 / max(im.size)
         im = im.resize((max(1, int(im.width * scale)), max(1, int(im.height * scale))))
-    buf = io.BytesIO(); im.save(buf, format="JPEG", quality=86)
+    buf = io.BytesIO()
+    im.save(buf, format="JPEG", quality=86)
     return base64.b64encode(buf.getvalue()).decode("ascii")
 
 
@@ -339,15 +340,20 @@ class H3UseCasePromptCreator:
         images = []
         for ref in [reference_image_1, reference_image_2, reference_image_3, reference_image_4, reference_image_5, reference_image_6]:
             if ref is not None:
-                try: images.append(_img_b64(ref))
-                except Exception: pass
+                try:
+                    images.append(_img_b64(ref))
+                except Exception:
+                    pass
         video_frames = _sample_video(reference_video)
         images.extend(video_frames[:4])
 
         input_inventory = []
-        if images: input_inventory.append(f"visual evidence: {len(images)} image/frame samples")
-        if reference_video is not None: input_inventory.append("reference video connected")
-        if reference_audio is not None: input_inventory.append("reference audio connected")
+        if images:
+            input_inventory.append(f"visual evidence: {len(images)} image/frame samples")
+        if reference_video is not None:
+            input_inventory.append("reference video connected")
+        if reference_audio is not None:
+            input_inventory.append("reference audio connected")
 
         # Inherit the full T2VA guide (camera vocabulary, cut phrasing, speaker
         # and timing rules) instead of restating a thinner version of it here.
@@ -417,7 +423,8 @@ Use-case fields:
 
         # Deterministic fallback; concise but valid H3 structure.
         desc = f"[Shot 1] Cinematic {use_case.lower()} video, {aspect_ratio}, {duration:.2f} seconds. {idea.strip() or 'Create a polished, coherent scene based on the supplied use case.'}"
-        if field_lines: desc += " " + "; ".join(field_lines[:8]) + "."
+        if field_lines:
+            desc += " " + "; ".join(field_lines[:8]) + "."
         prompt = f"integrated_multimodal_description: {desc}\n\noverall_soundscape: Natural diegetic ambience and physical action sounds appropriate to the scene.\n\nnon_diegetic_music: A restrained, use-case-appropriate instrumental score with clear pacing and a controlled ending."
         brief = f"Use case: {use_case}\nDuration: {duration:.2f}s\nAspect ratio: {aspect_ratio}\n" + "\n".join(field_lines)
         return prompt, brief, "Deterministic fallback used. " + " | ".join(notes)
