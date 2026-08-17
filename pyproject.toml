@@ -1,0 +1,35 @@
+[project]
+name = "comfyui-h3-prompt-creator"
+description = "MiniMax H3 video prompt creators for ComfyUI. Automatic T2VA/I2VA/FL2VA/L2VA mode selection, a six-section full-reference mode with per-image subject analysis, and use-case presets. Runs on a local Ollama vision model or on OpenAI, Anthropic, OpenRouter or Google Gemini."
+version = "3.0.0"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+
+# Intentionally empty so installing the node stays light. The only extras are
+# for the audio pipeline (faster-whisper + librosa) and they are heavy; they
+# live in requirements-audio.txt as an opt-in install. Every other feature
+# works without them and the nodes report the missing capability rather than
+# failing. Note the file is deliberately NOT named requirements.txt, because
+# ComfyUI Manager installs that automatically on node install.
+dependencies = []
+
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+# TODO before publishing: point these at your own repository.
+Repository = "https://github.com/AIJigyasa/ComfyUI-H3-Prompt-Creator"
+BugTracker = "https://github.com/AIJigyasa/ComfyUI-H3-Prompt-Creator/issues"
+
+[tool.comfy]
+# Registry profile @aijigyasa. Never put the publisher API key in this file —
+# it belongs in the GitHub secret REGISTRY_ACCESS_TOKEN, or typed at the
+# `comfy node publish` prompt. Everything in this repo gets published.
+PublisherId = "aijigyasa"
+DisplayName = "MiniMax H3 Prompt Creator"
+# icon.png ships in this repo (400x400). The registry fetches this URL, so the
+# file must already be pushed to the default branch before you publish.
+Icon = "https://raw.githubusercontent.com/AIJigyasa/ComfyUI-H3-Prompt-Creator/main/icon.png"
